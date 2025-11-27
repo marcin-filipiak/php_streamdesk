@@ -1,33 +1,109 @@
+/* Font i body */
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f2f4f8;
+    color: #333;
+}
+
+/* Navbar */
+.navbar {
+    background: linear-gradient(90deg, #0d6efd 0%, #0056b3 100%);
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
 }
 
 .navbar-brand {
     font-weight: bold;
-    font-size: 1.5rem;
+    font-size: 1.6rem;
+    color: #fff;
 }
 
-.card-img-overlay {
-    background: rgba(0,0,0,0.5);
-    color: white;
-    font-weight: bold;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 1.2rem;
-    text-align: center;
+.navbar-brand img {
+    border-radius: 6px;
+    margin-right: 0.5rem;
 }
 
-.card h5 {
-    margin: 0;
-    font-size: 1rem;
+/* Tytuły sekcji */
+h3 a {
+    text-decoration: none;
+    color: #0d6efd;
+    font-weight: 600;
+    font-size: 1.4rem;
+    transition: color 0.2s ease;
 }
 
+h3 a:hover {
+    color: #0056b3;
+    text-decoration: underline;
+}
+
+h3 {
+    margin-top: 3rem;
+    margin-bottom: 1.5rem;
+}
+
+/* Karty */
+.card {
+    border: none;
+    border-radius: 12px;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    background: linear-gradient(180deg, #ffffff 0%, #f8f9fa 100%);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+}
+
+.card-hover:hover {
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+}
+
+/* Media w kartach */
 .ratio iframe,
 .ratio video,
 .ratio img {
     width: 100%;
     height: 100%;
     object-fit: cover;
+    border-radius: 12px 12px 0 0;
+}
+
+/* Overlay napis OFFLINE */
+.card-img-overlay {
+    background: rgba(0,0,0,0.45);
+    color: #fff;
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.2rem;
+    text-align: center;
+    border-radius: 12px;
+}
+
+/* Tytuły kart */
+.card h5 {
+    margin: 0;
+    font-size: 1rem;
+}
+
+/* Lightbox */
+#lightboxImage {
+    width: 100%;
+    border-radius: 12px;
+}
+
+/* Footer */
+footer {
+    font-size: 0.85rem;
+    color: #6c757d;
+    padding: 2rem 0;
+    text-align: center;
+}
+
+/* Responsywne marginesy */
+@media (max-width: 768px) {
+    h3 {
+        margin-top: 2rem;
+        margin-bottom: 1rem;
+    }
 }
 
