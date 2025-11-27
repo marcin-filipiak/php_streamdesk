@@ -1,0 +1,43 @@
+{
+  "links": {
+    "Example Link 1": "https://example.com/page1",
+    "Example Link 2": "https://example.com/page2"
+  },
+  "media": {
+    "Category_1": {
+      "source": "https://source.example.com/",
+      "items": [
+        {
+          "url": "https://example.com/image1.jpg",
+          "type": "image",
+          "refresh": 10
+        },
+        {
+          "url": "https://example.com/video1.mp4",
+          "type": "video",
+          "refresh": 30
+        },
+        {
+          "url": "https://youtu.be/exampleID",
+          "type": "youtube",
+          "refresh": 60
+        },
+        {
+          "url": "https://example.com/embed.html",
+          "type": "iframe",
+          "refresh": 60
+        }
+      ]
+    },
+    "Category_2": {
+      "source": "https://another-source.example.com/",
+      "items": [
+        {
+          "url": "https://another-source.example.com/image.png",
+          "type": "image",
+          "refresh": 15
+        }
+      ]
+    }
+  }
+}
