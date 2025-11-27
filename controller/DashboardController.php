@@ -1,4 +1,14 @@
 <?php
+/**
+ * StreamDesk – Content Aggregator
+ * 
+ * Open source project under MIT License.
+ * Author: Marcin Filipiak
+ * 
+ * Description: A universal content aggregator that displays images, videos, YouTube videos,
+ * and embedded pages in a responsive card grid layout.
+ */
+
 require_once __DIR__ . '/../model/DataModel.php';
 include('config.php');
 
