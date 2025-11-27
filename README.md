@@ -22,6 +22,7 @@ streamdesk/
 │  ├─ css/
 │  │  └─ styles.css
 │  └─ img/
+│     ├─ logo.svg
 │     └─ offline-icon.jpg
 ├─ config.php
 ├─ data.json

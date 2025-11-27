@@ -11,7 +11,12 @@
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary mb-4">
   <div class="container-fluid">
-    <a class="navbar-brand" href="#"><?= htmlspecialchars(NAVBAR_BRAND) ?></a>
+    <a class="navbar-brand d-flex align-items-center" href="#">
+    <?php if (file_exists(__DIR__ . '/../assets/img/logo.svg')): ?>
+        <img src="<?= BASE_URL ?>/assets/img/logo.svg" alt="Logo" width="30" class="me-2">
+    <?php endif; ?>
+    <?= htmlspecialchars(NAVBAR_BRAND) ?>
+    </a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainMenu">
       <span class="navbar-toggler-icon"></span>
     </button>
