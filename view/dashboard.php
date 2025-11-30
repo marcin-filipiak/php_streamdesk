@@ -46,10 +46,12 @@
                 <div class="card h-100 shadow-sm">
                     <div class="ratio ratio-16x9 position-relative">
                         <?php if ($item['type'] === 'image'): ?>
+                            <a href="index.php?op=viewimage&img=<?= urlencode($item['url']) ?>">
                             <img class="card-img img-fluid"
                                  src="<?= htmlspecialchars($item['url']) ?>"
                                  alt="<?= htmlspecialchars($category) ?>"
                                  onerror="this.onerror=null;this.src='<?= DEFAULT_OFFLINE ?>';">
+                            </a>
                         <?php elseif ($item['type'] === 'video'): ?>
                             <video class="card-img" controls>
                                 <source src="<?= htmlspecialchars($item['url']) ?>" type="video/mp4">
