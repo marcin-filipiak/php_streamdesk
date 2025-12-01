@@ -15,7 +15,8 @@ StreamDesk to uniwersalny agregator treści, który umożliwia wyświetlanie obr
 
 1. Skopiuj projekt na serwer obsługujący PHP 7.4+.
 2. Upewnij się, że rozszerzenie `json` jest dostępne.
-3. Struktura katalogów:
+3. Dostęp do modułu konfiguracyjnego jest realizowany za pomocą sesji, konieczne może być połączenie SSL. 
+4. Struktura katalogów:
 
 ```
 streamdesk/
