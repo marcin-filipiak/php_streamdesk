@@ -1,20 +1,21 @@
 # StreamDesk – Content Aggregator
 
-StreamDesk to uniwersalny agregator treści, który umożliwia wyświetlanie obrazów, filmów, materiałów z YouTube oraz osadzonych stron w formie siatki kart w przeglądarce. Projekt pozwala łatwo zarządzać źródłami danych i kategoriami poprzez plik JSON oraz centralną konfigurację w PHP.
+StreamDesk to uniwersalny agregator treści, który umożliwia wyświetlanie obrazów, filmów, materiałów z YouTube oraz osadzonych stron w formie siatki kart w przeglądarce. Projekt posiada centralną konfigurację w PHP oraz plik JSON opisujący wszystkie kategorie i źródła. Dodano także moduł edytora, który umożliwia modyfikację całego pliku JSON bezpośrednio z poziomu przeglądarki po podaniu hasła.
 
 ## Funkcjonalności
 
 * Obsługa różnych typów mediów: obrazy, wideo, YouTube, iframe.
 * Automatyczne przełączanie na domyślny obraz, gdy źródło jest offline.
-* Responsywny układ kart w siatce z wykorzystaniem Bootstrap.
-* Łatwa konfiguracja globalnych ustawień projektu w pliku `config.php`.
-* Możliwość dodawania nowych kategorii i źródeł w pliku JSON.
+* Responsywna siatka kart oparta na Bootstrap.
+* Konfiguracja ustawień globalnych w jednym miejscu (config.php).
+* Edytowalny plik JSON z kategoriami i źródłami.
+* Wbudowany moduł edytora JSON z autoryzacją hasłem.
 
 ## Instalacja
 
-1. Skopiuj projekt na serwer PHP.
-2. Upewnij się, że masz włączone PHP 7.4+ i obsługę `json`.
-3. Struktura katalogów powinna wyglądać:
+1. Skopiuj projekt na serwer obsługujący PHP 7.4+.
+2. Upewnij się, że rozszerzenie `json` jest dostępne.
+3. Struktura katalogów:
 
 ```
 streamdesk/
@@ -26,40 +27,76 @@ streamdesk/
 │     └─ offline-icon.jpg
 ├─ config.php
 ├─ data.json
+├─ index.php
 ├─ model/
-│  └─ DataModel.php
+│  ├─ DataModel.php
+│  └─ EditorModel.php
 ├─ controller/
-│  └─ DashboardController.php
+│  ├─ DashboardController.php
+│  └─ EditorController.php
 └─ view/
-   └─ dashboard.php
+   ├─ dashboard.php
+   └─ editor.php
 ```
 
-## Konfiguracja (`config.php`)
+---
 
-W pliku `config.php` definiuje się stałe globalne używane w projekcie:
+# Konfiguracja (`config.php`)
+
+W pliku `config.php` znajdują się stałe kontrolujące działanie aplikacji:
 
 ```php
 <?php
-// Adres bazowy aplikacji
 define('BASE_URL', '/streamdesk');
-
-// Domyślny obrazek, gdy media są offline
 define('DEFAULT_OFFLINE', BASE_URL . '/assets/img/offline-icon.jpg');
 
-// Teksty wyświetlane w nagłówku i w tytule strony
 define('SITE_TITLE', 'StreamDesk – Content Aggregator');
 define('NAVBAR_BRAND', 'StreamDesk');
+
+// Hasło do edytora JSON
+define('EDITOR_PASSWORD', 'twojehaslo123');
 ?>
 ```
 
-* `BASE_URL` – adres bazowy aplikacji (przydaje się przy generowaniu ścieżek do zasobów).
-* `DEFAULT_OFFLINE` – obraz wyświetlany, gdy media są niedostępne.
-* `SITE_TITLE` – tytuł strony w `<title>`.
-* `NAVBAR_BRAND` – tekst wyświetlany w pasku nawigacyjnym.
+### Zmiana hasła do edytora
 
-## Plik JSON (`data.json`)
+Hasło znajduje się w jednej linii:
 
-Plik `data.json` definiuje źródła linków i mediów. Struktura przykładowa:
+```
+define('EDITOR_PASSWORD', 'twojehaslo123');
+```
+
+Wystarczy zmienić wartość w cudzysłowie i zapisać plik.
+
+---
+
+# Moduł Edytora JSON
+
+W projekcie dostępny jest moduł służący do edycji pliku `data.json` bezpośrednio z przeglądarki.
+
+## Jak wejść do edytora?
+
+Przejdź pod adres:
+
+```
+/streamdesk/index.php?op=editor
+```
+
+### Zachowanie edytora:
+
+* jeżeli użytkownik nie jest zalogowany – pojawia się formularz z hasłem
+* jeśli hasło jest błędne – wyświetlany jest komunikat
+* po poprawnym wpisaniu hasła – użytkownik zostaje zalogowany i może edytować JSON
+* zapis odbywa się przyciskiem „Zapisz”
+* po zapisie użytkownik wraca na stronę główną
+
+---
+
+# Plik JSON (`data.json`)
+
+Plik `data.json` zawiera wszystkie zdefiniowane linki i kategorie. Projekt odczytuje ten plik przez model i wyświetla zgodnie ze strukturą.
+
+### Przykład:
 
 ```json
 {
@@ -92,31 +129,22 @@ Plik `data.json` definiuje źródła linków i mediów. Struktura przykładowa:
           "refresh": 60
         }
       ]
-    },
-    "Category_2": {
-      "source": "https://another-source.example.com/",
-      "items": [
-        {
-          "url": "https://another-source.example.com/image.png",
-          "type": "image",
-          "refresh": 15
-        }
-      ]
     }
   }
 }
 ```
 
-### Opis pól JSON:
+### Opis pól
 
-* `links` – lista linków do zewnętrznych źródeł, wyświetlanych w pasku nawigacyjnym.
-* `media` – główne kategorie z mediami.
+* `links` – proste odnośniki pojawiające się w pasku menu.
+* `media` – kategorie z zawartością multimedialną.
 
-  * `source` – strona źródłowa danej kategorii.
-  * `items` – tablica elementów multimedialnych.
+Każda kategoria zawiera:
 
-    * `url` – adres zasobu.
-    * `type` – typ zasobu (`image`, `video`, `youtube`, `iframe`).
-    * `refresh` – czas odświeżania w sekundach (opcjonalnie, można wykorzystać w JS do automatycznego reload).
+* `source` – strona źródłowa kategorii
+* `items` – lista elementów multimedialnych
 
+  * `url` – adres konkretnego zasobu
+  * `type` – `image`, `video`, `youtube`, albo `iframe`
+  * `refresh` – (opcjonalnie) czas odświeżania
 
