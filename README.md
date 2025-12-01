@@ -76,10 +76,11 @@ W projekcie dostępny jest moduł służący do edycji pliku `data.json` bezpoś
 
 ## Jak wejść do edytora?
 
-Przejdź pod adres:
+Przejdź pod adres twojego serwisu Streamdesk i dodaj w adresie parametr "op=editor":
 
+przykład
 ```
-/streamdesk/index.php?op=editor
+http://twojaDomena.test/index.php?op=editor
 ```
 
 ### Zachowanie edytora:
