@@ -54,7 +54,7 @@ define('SITE_TITLE', 'StreamDesk – Content Aggregator');
 define('NAVBAR_BRAND', 'StreamDesk');
 
 // Hasło do edytora JSON
-define('EDITOR_PASSWORD', 'twojehaslo123');
+define('EDITOR_PASSWORD', '12345');
 ?>
 ```
 
@@ -63,7 +63,7 @@ define('EDITOR_PASSWORD', 'twojehaslo123');
 Hasło znajduje się w jednej linii:
 
 ```
-define('EDITOR_PASSWORD', 'twojehaslo123');
+define('EDITOR_PASSWORD', '12345');
 ```
 
 Wystarczy zmienić wartość w cudzysłowie i zapisać plik.
