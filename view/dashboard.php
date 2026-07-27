@@ -1,11 +1,15 @@
 <!doctype html>
 <html lang="pl">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title><?= htmlspecialchars(SITE_TITLE) ?></title>
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-<link href="<?= BASE_URL ?>/assets/css/styles.css?v=<?= date('YmdHi') ?>" rel="stylesheet">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="author" content="Marcin Filipiak">
+    <meta name="application-name" content="StreamDesk">
+    <meta name="repository" content="https://github.com/marcin-filipiak/php_streamdesk">
+    <meta property="og:url" content="https://github.com/marcin-filipiak/php_streamdesk">
+    <title><?= htmlspecialchars(SITE_TITLE) ?></title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="<?= BASE_URL ?>/assets/css/styles.css?v=<?= date('YmdHi') ?>" rel="stylesheet">
 </head>
 <body class="bg-light">
 
@@ -43,39 +47,9 @@
     <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-3 mb-4">
         <?php foreach ($catData['items'] as $item): ?>
             <div class="col">
-                <div class="card h-100 shadow-sm">
+                <div class="card h-100 shadow-sm<?= $pluginManager->has($item['type']) ? '' : ' border-danger' ?>"<?php if (!empty($item['refresh'])): ?> data-refresh="<?= (int)$item['refresh'] ?>"<?php endif; ?>>
                     <div class="ratio ratio-16x9 position-relative">
-                        <?php if ($item['type'] === 'image'): ?>
-                            <a href="index.php?op=viewimage&img=<?= urlencode($item['url']) ?>">
-                            <img class="card-img img-fluid"
-                                 src="<?= htmlspecialchars($item['url']) ?>"
-                                 alt="<?= htmlspecialchars($category) ?>"
-                                 onerror="this.onerror=null;this.src='<?= DEFAULT_OFFLINE ?>';">
-                            </a>
-                        <?php elseif ($item['type'] === 'video'): ?>
-                            <video class="card-img" controls>
-                                <source src="<?= htmlspecialchars($item['url']) ?>" type="video/mp4">
-                                Twoja przeglądarka nie wspiera wideo.
-                            </video>
-                        <?php elseif ($item['type'] === 'youtube'): ?>
-                            <?php
-                                preg_match('/(?:youtu\.be\/|v=|\/embed\/)([a-zA-Z0-9_-]{11})/', $item['url'], $matches);
-                                $youtubeId = $matches[1] ?? '';
-                            ?>
-                            <?php if ($youtubeId): ?>
-                                <iframe width="600" height="388" align="center"
-                                        src="https://www.youtube.com/embed/<?= htmlspecialchars($youtubeId) ?>"
-                                        title="YouTube video player" frameborder="0"
-                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                                        allowfullscreen></iframe>
-                            <?php endif; ?>
-                        <?php elseif ($item['type'] === 'iframe'): ?>
-                            <iframe class="card-img" src="<?= htmlspecialchars($item['url']) ?>"></iframe>
-                            <div class="mt-1 text-center">
-                                <a href="<?= htmlspecialchars($item['url']) ?>" target="_blank" class="btn btn-sm btn-primary">Otwórz w nowej karcie</a>
-                            </div>
-                        <?php endif; ?>
-                        
+                        <?= $pluginManager->render($item['type'], $item, $category) ?>
                         <div class="card-img-overlay d-none">OFFLINE</div>
                     </div>
                 </div>
@@ -87,6 +61,7 @@
 </main>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="<?= BASE_URL ?>/assets/js/main.js?v=<?= date('YmdHi') ?>"></script>
 </body>
 </html>
 

@@ -92,6 +92,32 @@ h3 {
     font-size: 1rem;
 }
 
+/* METAR / NOTAM */
+.metar-code,
+.notam-code {
+    font-weight: 700;
+    letter-spacing: 0.05em;
+}
+
+.metar-raw,
+.notam-raw {
+    line-height: 1.4;
+    word-break: break-all;
+}
+
+.notam-raw {
+    scrollbar-width: thin;
+}
+
+.notam-raw::-webkit-scrollbar {
+    width: 4px;
+}
+
+.notam-raw::-webkit-scrollbar-thumb {
+    background: #ccc;
+    border-radius: 2px;
+}
+
 /* Lightbox */
 #lightboxImage {
     width: 100%;

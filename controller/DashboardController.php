@@ -9,17 +9,17 @@
  * and embedded pages in a responsive card grid layout.
  */
 
-
-
-require_once __DIR__ . '/../model/DataModel.php';
 include __DIR__ . '/../config.php';
+require_once __DIR__ . '/../model/DataModel.php';
+require_once __DIR__ . '/../plugins/PluginManager.php';
 
 class DashboardController {
     private $model;
-    private $defaultOffline = '/assets/img/offline.jpg';
+    private $pluginManager;
 
     public function __construct() {
         $this->model = new DataModel(__DIR__ . '/../data.json');
+        $this->pluginManager = new PluginManager(__DIR__ . '/../plugins');
     }
 
     public function handleRequest() {
@@ -43,6 +43,7 @@ class DashboardController {
     public function index() {
         $links = $this->model->getLinks();
         $media = $this->model->getMedia();
+        $pluginManager = $this->pluginManager;
 
         include __DIR__ . '/../view/dashboard.php';
     }
